@@ -10,6 +10,16 @@
 | **`setup_bare-ai-worker.sh`** | `v002` | **Worker** | The Linux Specialist. Runs on RKE, Vault, and Tailscale nodes. Handles local self-healing and generates daily logs. |
 | **`setup_bare-ai-win.ps1`** | `Exp` | **Worker** | *Experimental* PowerShell wrapper for Windows nodes. Adapts self-healing logic for Windows Server environments. |
 
+
+---
+
+Security & Requirements
+Tailscale: Must be installed and connected on all nodes.
+
+SSH Identity: The Brain uses SSH keys for passwordless access. Ensure ssh-copy-id or Tailscale ACLs are configured.
+
+Gemini API: All nodes require a valid GEMINI_API_KEY in their environment variables.
+
 ---
 
 ## 🚀 Quick Start (Linux)
@@ -28,3 +38,6 @@ nano ~/.bare-ai/brain/fleet.conf
 # Add one Tailscale hostname per line, e.g.:
 # rke-node-01
 # vault-manager
+
+
+
