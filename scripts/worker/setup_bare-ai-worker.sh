@@ -65,7 +65,7 @@ execute_command() {
     echo -e "  Command: $cmd"
     
     mkdir -p "$LOG_DIR"
-    read -p "Execute this command? (y/N): " -n 1 -r
+    REPLY="y"
     echo # Move to a new line after user input
     
     if [[ $REPLY =~ ^[Yy]$ ]]; then
