@@ -3,7 +3,7 @@ set -euo pipefail
 
 # ==============================================================================
 # SCRIPT NAME:    setup_bare-brain.sh
-# VERSION:        4.5.0-Deterministic (Self-Cleaning)
+# VERSION:        4.5.1-Hotfix (Variable Fix)
 # DESCRIPTION:    Installs the Brain and purges legacy configuration drift.
 # ==============================================================================
 
@@ -16,11 +16,13 @@ BIN_DIR="$WORKSPACE_DIR/bin"
 LOG_DIR="$WORKSPACE_DIR/logs"
 FLEET_FILE="$WORKSPACE_DIR/fleet.conf"
 CONSTITUTION_SRC="constitution.md" 
+# FIX: Added missing variable definition below
+BASHRC_FILE="$HOME/.bashrc"
 
-echo -e "${GREEN}Installing Bare-AI Brain (v4.5.0)...${NC}"
+echo -e "${GREEN}Installing Bare-AI Brain (v4.5.1)...${NC}"
 mkdir -p "$LOG_DIR" "$BIN_DIR"
 
-# --- 1. PURGE DEBRIS (Fixing the Duplicate Issue) ---
+# --- 1. PURGE DEBRIS ---
 if [ -f "$WORKSPACE_DIR/brain_constitution.md" ]; then
     echo -e "${YELLOW}Removing legacy file: brain_constitution.md${NC}"
     rm -f "$WORKSPACE_DIR/brain_constitution.md"
@@ -92,7 +94,7 @@ while IFS= read -r WORKER_HOST || [[ -n "$WORKER_HOST" ]]; do
         fi
     fi
 
-    # 4. Reflex Action (v4.5 Parser)
+    # 4. Reflex Action
     REASON=$(echo "$RESPONSE" | grep "REASON:" | cut -d':' -f2- | xargs)
     FIX_CMD=$(echo "$RESPONSE" | grep "COMMAND:" | cut -d':' -f2- | xargs)
 
@@ -117,4 +119,4 @@ echo 'if [ -d "$HOME/.bare-ai/bin" ] ; then PATH="$HOME/.bare-ai/bin:$PATH"; fi'
 if ! grep -q "BARE-AI PATH" "$BASHRC_FILE"; then cat "$TEMP_PATH" >> "$BASHRC_FILE"; fi
 rm -f "$TEMP_PATH"
 
-echo -e "${GREEN}Brain v4.5 Update Complete (Debris Purged).${NC}"
+echo -e "${GREEN}Brain v4.5.1 Update Complete.${NC}"
